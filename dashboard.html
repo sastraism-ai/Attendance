@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Employee Dashboard</title>
+<link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<h1 class="m-4">SARADHI AI Employee Dashboard</h1>
+
+<div class="m-4">
+
+<h3>Productivity Score: {{score}}%</h3>
+
+<a href="/checkin" class="btn btn-primary">Check In</a>
+<a href="/checkout" class="btn btn-danger">Check Out</a>
+
+<h3 class="mt-4">Submit Work Report</h3>
+
+<form action="/report" method="POST">
+<textarea name="task" class="form-control"></textarea>
+<button class="btn btn-success mt-2">Submit</button>
+</form>
+
+<h3 class="mt-4">Attendance</h3>
+
+<table class="table">
+<tr><th>Date</th><th>Check In</th><th>Check Out</th></tr>
+
+{% for r in records %}
+<tr>
+<td>{{r[0]}}</td>
+<td>{{r[1]}}</td>
+<td>{{r[2]}}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<h3>HR AI Assistant</h3>
+
+<input id="msg" class="form-control">
+<button onclick="askAI()" class="btn btn-primary mt-2">Ask</button>
+
+<p id="reply"></p>
+
+<script>
+
+function askAI(){
+
+fetch("/chatbot",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message:document.getElementById("msg").value})
+})
+.then(r=>r.json())
+.then(d=>{
+document.getElementById("reply").innerText=d.reply
+})
+
+}
+
+</script>
+
+</div>
+
+</body>
+</html>

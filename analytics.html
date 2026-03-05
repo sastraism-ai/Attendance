@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Analytics</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<h2>SARADHI AI Attendance Analytics</h2>
+
+<canvas id="attendanceChart"></canvas>
+
+<script>
+
+const ctx = document.getElementById('attendanceChart');
+
+new Chart(ctx, {
+type: 'bar',
+data: {
+labels: {{dates|tojson}},
+datasets: [{
+label: 'Employees Present',
+data: {{counts|tojson}},
+backgroundColor: 'blue'
+}]
+}
+});
+
+</script>
+
+</body>
+</html>
